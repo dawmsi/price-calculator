@@ -8,7 +8,9 @@ interface IProps {
     setMinValue: Function
     maxValue: number
     setMaxValue: Function
+    prices: any
     index: number
+
     name: string
     color: string
     priceStorage: number | object
@@ -17,13 +19,18 @@ interface IProps {
     maxPayment?: number
     freeTransfer?: number
     freeStorage?: number
-    prices: any
 }
 
 export const Company: React.FC<IProps> = ({
     storage,
     transfer,
+    minValue,
+    setMinValue,
+    maxValue,
+    setMaxValue,
+    prices,
     index,
+
     name,
     color,
     priceStorage,
@@ -31,12 +38,7 @@ export const Company: React.FC<IProps> = ({
     minPayment,
     maxPayment,
     freeTransfer,
-    freeStorage,
-    prices,
-    minValue,
-    setMinValue,
-    maxValue,
-    setMaxValue,
+    freeStorage
 }) => {
     const [storageSwitcher, setStorageSwitcher] = useState(false)
     const [price, setPrice] = useState(0)
@@ -50,11 +52,9 @@ export const Company: React.FC<IProps> = ({
         _min: number | undefined = minPayment,
         _max: number | undefined = maxPayment
     ): number => {
-        if (_min && _price !== 0 && _price < _min)
-            return _min
+        if (_min && _price !== 0 && _price < _min) return _min
 
-        if (_max && _price !== 0 && _price > _max)
-            return _max
+        if (_max && _price !== 0 && _price > _max) return _max
 
         return _price
     }
@@ -63,9 +63,11 @@ export const Company: React.FC<IProps> = ({
         _priceStorage: number,
         _storage: number,
         _priceTransfer: number,
-        _transfer: number,
+        _transfer: number
     ): number {
-        return roundNumber((_priceStorage * _storage) + (_priceTransfer * _transfer))
+        return roundNumber(
+            _priceStorage * _storage + _priceTransfer * _transfer
+        )
     }
 
     function formulaFree(
@@ -74,10 +76,12 @@ export const Company: React.FC<IProps> = ({
         _priceStorage: number,
         _storage: number,
         _priceTransfer: number,
-        _transfer: number,
+        _transfer: number
     ): number {
-        return roundNumber((_priceStorage * (_storage - _freeStorage) +
-            _priceTransfer * (_transfer - _freeTransfer)))
+        return roundNumber(
+            _priceStorage * (_storage - _freeStorage) +
+            _priceTransfer * (_transfer - _freeTransfer)
+        )
     }
 
     const calculatePrices = (): number => {
@@ -85,38 +89,45 @@ export const Company: React.FC<IProps> = ({
 
         if (typeof priceStorage === 'number') {
             tempPriceStorage = priceStorage
-        }
-        else {
+        } else {
             tempPriceStorage =
-                priceStorage[Object.keys(priceStorage)[Number(storageSwitcher)] as keyof object]
+                priceStorage[
+                Object.keys(priceStorage)[
+                Number(storageSwitcher)
+                ] as keyof object
+                ]
         }
 
-        if (freeStorage && freeTransfer) {
-            if (storage < freeStorage)
-                tempPriceStorage = 0
-            if (transfer < freeTransfer)
-                priceTransfer = 0
+        if (freeStorage || freeTransfer) {
+            if (storage < freeStorage) tempPriceStorage = 0
+            if (transfer < freeTransfer) priceTransfer = 0
             return formulaFree(
-                freeStorage, freeTransfer,
-                tempPriceStorage, storage,
-                priceTransfer, transfer,
+                freeStorage,
+                freeTransfer,
+                tempPriceStorage,
+                storage,
+                priceTransfer,
+                transfer
             )
-
         }
 
-        return formulaCalculatePrice(tempPriceStorage, storage, priceTransfer, transfer)
+        return formulaCalculatePrice(
+            tempPriceStorage,
+            storage,
+            priceTransfer,
+            transfer
+        )
     }
     useEffect(() => {
         setPrice(minMaxPayment(calculatePrices()))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [storage, transfer, storageSwitcher])
 
     useEffect(() => {
         prices.current[index] = price
         setMinValue(Math.min.apply(null, prices.current))
         setMaxValue(Math.max.apply(null, prices.current))
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [price])
 
     return (
@@ -127,7 +138,14 @@ export const Company: React.FC<IProps> = ({
                 width: '100%'
             }}
         >
-            <h5 style={{ minWidth: '80px', color: `${price === minValue ? color : 'gray'}` }}>{name}</h5>
+            <h5
+                style={{
+                    minWidth: '80px',
+                    color: `${price === minValue ? color : 'gray'}`
+                }}
+            >
+                {name}
+            </h5>
             <img
                 src={process.env.PUBLIC_URL + `/logos/${name}.svg`}
                 alt="logo"
@@ -139,9 +157,7 @@ export const Company: React.FC<IProps> = ({
                     height: '30px'
                 }}
             />
-            <h6>
-                {price + ' $'}
-            </h6>
+            <h6>{price + ' $'}</h6>
             <div
                 style={{
                     height: '100%',
@@ -156,13 +172,13 @@ export const Company: React.FC<IProps> = ({
                     style={{
                         backgroundColor: `${'#dee2e6'}`,
                         width: '100%',
-                        left: '0',
+                        left: '0'
                     }}
                 ></ProgressBar>
             </div>
-            {
-                typeof priceStorage === 'object' ? <Button
-                    variant='dark'
+            {typeof priceStorage === 'object' ? (
+                <Button
+                    variant="dark"
                     style={{
                         height: '18px',
                         padding: '0 2px',
@@ -171,8 +187,12 @@ export const Company: React.FC<IProps> = ({
                         width: '90px'
                     }}
                     onClick={() => setStorageSwitcher(!storageSwitcher)}
-                >{Object.keys(priceStorage)[Number(storageSwitcher)]}</Button> : ''
-            }
-        </div >
+                >
+                    {Object.keys(priceStorage)[Number(storageSwitcher)]}
+                </Button>
+            ) : (
+                ''
+            )}
+        </div>
     )
 }
