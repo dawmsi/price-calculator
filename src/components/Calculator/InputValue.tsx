@@ -9,6 +9,7 @@ export const InputValue = ({ label, maxGB, valueGB, stateFunc }) => {
             <datalist id="defaultNumbers">
                 <option value="50"></option>
                 <option value="100"></option>
+                <option value="200"></option>
                 <option value="300"></option>
                 <option value="1000"></option>
             </datalist>
