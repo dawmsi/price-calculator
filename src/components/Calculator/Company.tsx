@@ -11,7 +11,7 @@ interface IProps {
     prices: any
     index: number
 
-    icon:string
+    icon: string
     name: string
     color: string
     priceStorage: number | object
@@ -123,12 +123,13 @@ export const Company: React.FC<IProps> = ({
     useEffect(() => {
         setPrice(minMaxPayment(calculatePrices()))
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [storage, transfer, storageSwitcher])
+    }, [storage, transfer, storageSwitcher, minValue, maxValue])
 
     useEffect(() => {
         prices.current[index] = price
-        setMinValue(Math.min.apply(null, prices.current))
         setMaxValue(Math.max.apply(null, prices.current))
+        setMinValue(Math.min.apply(null, prices.current))
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [price])
 
