@@ -10,7 +10,8 @@ export const Calculator = () => {
     const [transfer, setTransfer] = useState<number>(0)
     const [minValue, setMinValue] = useState<number>(0)
     const [maxValue, setMaxValue] = useState<number>(0)
-    const prices = useRef(inputData)
+    
+    const prices = useRef([])
 
     function getRangeValue(e: any): number {
         return Number(e.target.value)
