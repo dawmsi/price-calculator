@@ -10,7 +10,7 @@ export const Calculator = () => {
     const [transfer, setTransfer] = useState<number>(0)
     const [minValue, setMinValue] = useState<number>(0)
     const [maxValue, setMaxValue] = useState<number>(0)
-    
+
     const prices = useRef([])
 
     function getRangeValue(e: any): number {
@@ -48,7 +48,7 @@ export const Calculator = () => {
                         type="number"
                         value={storage > maxGB ? maxGB : storage}
                         onChange={(e) => setStorage(getRangeValue(e))}
-                        style={{ width: 'auto', height: '22px', margin: '2px' }}
+                        style={{ width: 'auto', height: '22px', margin: '2px', fontSize: '15px' }}
                     /> GB
                 </Form.Label>
                 <Form.Range
@@ -68,7 +68,7 @@ export const Calculator = () => {
                         type="number"
                         value={transfer > maxGB ? maxGB : transfer}
                         onChange={(e) => setTransfer(getRangeValue(e))}
-                        style={{ width: 'auto', height: '22px', margin: '2px' }}
+                        style={{ width: 'auto', height: '22px', margin: '2px', fontSize: '15px' }}
                     /> GB
                 </Form.Label>
                 <Form.Range
