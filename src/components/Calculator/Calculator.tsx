@@ -44,6 +44,7 @@ export const Calculator = () => {
             }}
         >
             <InputValue
+                key={'storage'}
                 label="Storage"
                 maxGB={maxGB}
                 valueGB={storage}
@@ -51,6 +52,7 @@ export const Calculator = () => {
             />
 
             <InputValue
+                key={'transfer'}
                 label="Transfer"
                 maxGB={maxGB}
                 valueGB={transfer}
