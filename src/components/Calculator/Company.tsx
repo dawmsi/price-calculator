@@ -11,6 +11,7 @@ interface IProps {
     prices: any
     index: number
 
+    icon:string
     name: string
     color: string
     priceStorage: number | object
@@ -31,6 +32,7 @@ export const Company: React.FC<IProps> = ({
     prices,
     index,
 
+    icon,
     name,
     color,
     priceStorage,
@@ -147,7 +149,7 @@ export const Company: React.FC<IProps> = ({
                 {name}
             </h5>
             <img
-                src={process.env.PUBLIC_URL + `/logos/${name}.svg`}
+                src={icon}
                 alt="logo"
                 style={{
                     display: 'flex',

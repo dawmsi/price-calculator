@@ -1,20 +1,36 @@
-import { ReactNode, useRef, useState } from 'react'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import { Col, Form, Row } from 'react-bootstrap'
-import { inputData } from '../../inputData'
+import { localDB } from '../../localDB'
 import { Company } from './Company'
 
 export const Calculator = () => {
+    const inputData = useRef(JSON.parse(localDB).companies)
+
     const [storage, setStorage] = useState<number>(0)
     const [transfer, setTransfer] = useState<number>(0)
     const [minValue, setMinValue] = useState<number>(0)
     const [maxValue, setMaxValue] = useState<number>(0)
-    const prices = useRef(Object.keys(inputData))
+    const prices = useRef(Object.keys(localDB))
 
     function getRangeValue(e: any): number {
         return Number(e.target.value)
     }
 
     const maxGB = 1000
+
+    async function getData(_var, _local = localDB) {
+        fetch('https://my-json-server.typicode.com/dawmsi/mocki/db')
+            .then((response) => response.json())
+            .then((data) => { _var = [...data.companies] })
+            .catch(error => {
+                if (_local) _var = [..._local]
+                console.log(error)
+            })
+    }
+
+    useEffect(() => {
+        getData(inputData.current)
+    }, [])
 
     return (
         <Row style={{
@@ -61,7 +77,7 @@ export const Calculator = () => {
                 />
             </Col>
             <Row className='mob-vertical'>
-                {inputData.map((item, index): ReactNode => {
+                {inputData.current.map((item, index): ReactNode => {
                     return (
                         <Company
                             key={item.name}
