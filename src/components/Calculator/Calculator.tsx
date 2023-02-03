@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useRef, useState } from 'react'
-import { Col, Form, Row } from 'react-bootstrap'
+import { Button, Row } from 'react-bootstrap'
 import { localDB } from '../../localDB'
 import { Company } from './Company'
 import { InputValue } from './InputValue'
@@ -56,7 +56,7 @@ export const Calculator = () => {
                 valueGB={transfer}
                 stateFunc={setTransfer}
             />
-            
+
             <Row>
                 {inputData.current.map((item, index): ReactNode => {
                     return (
@@ -74,6 +74,22 @@ export const Calculator = () => {
                         />
                     )
                 })}
+            </Row>
+            <Row style={{ width: '100%' }}>
+                <Button
+                    variant="warning"
+                    href="https://t.me/DAoFFl"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                        margin: '12px auto',
+                        padding: '6px 12px',
+                        width: 'auto'
+                    }}
+                    size="sm"
+                >
+                    Sign a contract
+                </Button>
             </Row>
         </Row>
     )

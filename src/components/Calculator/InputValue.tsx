@@ -1,4 +1,4 @@
-import { Col, Form } from 'react-bootstrap'
+import { Button, Col, Form } from 'react-bootstrap'
 
 export const InputValue = ({ label, maxGB, valueGB, stateFunc }) => {
     function getRangeValue(e: any): number {
