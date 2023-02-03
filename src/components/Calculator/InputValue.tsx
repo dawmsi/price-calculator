@@ -7,18 +7,17 @@ export const InputValue = ({ label, maxGB, valueGB, stateFunc }) => {
     return (
         <Col sm={6}>
             <datalist id="defaultNumbers">
-                <option value="50"></option>
-                <option value="100"></option>
-                <option value="200"></option>
-                <option value="300"></option>
-                <option value="1000"></option>
+                <option value="50" key="50"/>
+                <option value="100" key="100"/>
+                <option value="200" key="200"/>
+                <option value="300" key="300"/>
+                <option value="1000" key="1000"/>
             </datalist>
             <Form.Label style={{ display: 'flex', gap: '6px' }}>
                 {label} :
                 <input
                     className="form-control"
                     step={1}
-                    size={1}
                     min={0}
                     max={maxGB}
                     list="defaultNumbers"
