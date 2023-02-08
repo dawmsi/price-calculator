@@ -1,8 +1,8 @@
 import { ReactNode, useEffect, useRef, useState } from 'react'
-import { Button, Row } from 'react-bootstrap'
-import { localDB } from '../../localDB'
-import { Company } from './Company'
-import { InputValue } from './InputValue'
+import { Button, ButtonGroup, Col, Row } from 'react-bootstrap'
+import { InputLine } from '../../components/InputLine/InputLine'
+import { ProgressLine } from '../../components/ProgressLine/ProgressLine'
+import { localDB } from '../../data'
 
 export const Calculator = () => {
     const inputData = useRef(JSON.parse(localDB).companies)
@@ -36,6 +36,8 @@ export const Calculator = () => {
         <Row
             style={{
                 width: '88%',
+                maxWidth: '880px',
+                minWidth: '345px',
                 margin: '20px auto',
                 padding: '6px',
                 borderRadius: '12px',
@@ -43,7 +45,7 @@ export const Calculator = () => {
                 boxShadow: '0px 0px 9px -3px'
             }}
         >
-            <InputValue
+            <InputLine
                 key={'storage'}
                 label="Storage"
                 maxGB={maxGB}
@@ -51,7 +53,7 @@ export const Calculator = () => {
                 stateFunc={setStorage}
             />
 
-            <InputValue
+            <InputLine
                 key={'transfer'}
                 label="Transfer"
                 maxGB={maxGB}
@@ -59,10 +61,10 @@ export const Calculator = () => {
                 stateFunc={setTransfer}
             />
 
-            <Row>
+            <Col>
                 {inputData.current.map((item, index): ReactNode => {
                     return (
-                        <Company
+                        <ProgressLine
                             key={item.name}
                             storage={storage}
                             transfer={transfer}
@@ -76,8 +78,8 @@ export const Calculator = () => {
                         />
                     )
                 })}
-            </Row>
-            <Row style={{ width: '100%' }}>
+            </Col>
+            <ButtonGroup>
                 <Button
                     variant="warning"
                     href="https://t.me/DAoFFl"
@@ -92,7 +94,7 @@ export const Calculator = () => {
                 >
                     Sign a contract
                 </Button>
-            </Row>
+            </ButtonGroup>
         </Row>
     )
 }

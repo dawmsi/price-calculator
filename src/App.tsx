@@ -1,10 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.css'
-import { Calculator } from './components/Calculator/Calculator'
+import { Calculator } from './modules/Calculator/Calculator'
 
 const App = () => {
-    return (
-        <Calculator />
-    )
+    return <Calculator />
 }
 
 export default App

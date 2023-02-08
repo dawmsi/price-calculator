@@ -22,7 +22,7 @@ interface IProps {
     freeStorage?: number
 }
 
-export const Company: React.FC<IProps> = ({
+export const ProgressLine: React.FC<IProps> = ({
     storage,
     transfer,
     minValue,
@@ -82,7 +82,7 @@ export const Company: React.FC<IProps> = ({
     ): number {
         return roundNumber(
             _priceStorage * (_storage - _freeStorage) +
-            _priceTransfer * (_transfer - _freeTransfer)
+                _priceTransfer * (_transfer - _freeTransfer)
         )
     }
 
@@ -94,9 +94,9 @@ export const Company: React.FC<IProps> = ({
         } else {
             tempPriceStorage =
                 priceStorage[
-                Object.keys(priceStorage)[
-                Number(storageSwitcher)
-                ] as keyof object
+                    Object.keys(priceStorage)[
+                        Number(storageSwitcher)
+                    ] as keyof object
                 ]
         }
 
