@@ -1,6 +1,6 @@
 {
   "homepage": "https://dawmsi.github.io/my-app/",
-  "name": "my-app",
+  "name": "price-calculator",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
